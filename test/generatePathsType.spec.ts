@@ -1,7 +1,25 @@
 import { describe, it, expect } from 'vitest'
-import { generatePathsInterface } from './generatePathsInterface'
+import { generatePathsType } from '../src/generatePathsType'
+import ts from 'typescript'
 
-describe('generateComponentsInterface', () => {
+function typeToString(node: ts.Node) {
+  const resultFile = ts.createSourceFile(
+    "testfile.ts",
+    "",
+    ts.ScriptTarget.Latest,
+    false,
+    ts.ScriptKind.TS
+  );
+  const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
+
+  return printer.printNode(
+    ts.EmitHint.Unspecified,
+    node,
+    resultFile,
+  )
+}
+
+describe('generatePathsType', () => {
   it('create a correctly named interface', () => {
     const mutatingMethod = {
       requestBody: {
@@ -51,16 +69,15 @@ describe('generateComponentsInterface', () => {
         }
       }
     } as const
-    const a = generatePathsInterface({
+    const type = generatePathsType({
       '/foo/bar': {
         post: mutatingMethod,
         put: mutatingMethod,
         patch: mutatingMethod,
       }
     })
-    expect(a).toMatchInlineSnapshot(`
-      "import type foo from \\"bar\\";
-      type Paths = {
+    expect(typeToString(type)).toMatchInlineSnapshot(`
+      "type Paths = {
           \\"/foo/bar\\": {
               POST: {
                   Responses: {

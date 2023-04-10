@@ -23,7 +23,7 @@ function getTypescriptUnionType(data: Array<OpenAPIV3.ReferenceObject | OpenAPIV
 
 function getTypescriptObjectType(data: OpenAPIV3.NonArraySchemaObject) {
   return ts.factory.createTypeLiteralNode(
-    Object.entries(data.properties!).map(  ([key, value]) => {
+    Object.entries(data.properties ?? {}).map(  ([key, value]) => {
       const questionToken = !data.required || !data.required.includes(key)
         ? ts.factory.createToken(ts.SyntaxKind.QuestionToken)
         : undefined

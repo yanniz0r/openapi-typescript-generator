@@ -1,9 +1,27 @@
 import { describe, it, expect } from 'vitest'
-import { generateComponentsInterfaces } from './generateComponentsInterface'
+import { generateComponentsType } from '../src/generateComponentsType'
+import ts from 'typescript';
+
+function typeToString(node: ts.Node) {
+  const resultFile = ts.createSourceFile(
+    "testfile.ts",
+    "",
+    ts.ScriptTarget.Latest,
+    false,
+    ts.ScriptKind.TS
+  );
+  const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
+
+  return printer.printNode(
+    ts.EmitHint.Unspecified,
+    node,
+    resultFile,
+  )
+}
 
 describe('generateComponentsInterface', () => {
   it('create a correctly named interface', () => {
-    const a = generateComponentsInterfaces({
+    const type = generateComponentsType({
       schemas: {
         Cat: {
           type: 'object',
@@ -18,15 +36,17 @@ describe('generateComponentsInterface', () => {
         }
       }
     })
-    expect(a).toMatchInlineSnapshot(`
-      "type Cat = {
-          name?: string;
-          age?: number;
+    expect(typeToString(type)).toMatchInlineSnapshot(`
+      "type Components = {
+          Cat: {
+              name?: string;
+              age?: number;
+          };
       };"
     `)
   })
   it('works with refs', () => {
-    const a = generateComponentsInterfaces({
+    const type = generateComponentsType({
       schemas: {
         Breed: {
           type: 'object',
@@ -46,19 +66,20 @@ describe('generateComponentsInterface', () => {
         }
       }
     })
-    expect(a).toMatchInlineSnapshot(`
-      "type Breed = {
-          name?: string;
-      };
-
-      type Cat = {
-          breed?: Breed;
+    expect(typeToString(type)).toMatchInlineSnapshot(`
+      "type Components = {
+          Breed: {
+              name?: string;
+          };
+          Cat: {
+              breed?: Breed;
+          };
       };"
     `)
   })
 
   it('works with required properties', () => {
-    const a = generateComponentsInterfaces({
+    const type = generateComponentsType({
       schemas: {
         Cat: {
           type: 'object',
@@ -76,16 +97,18 @@ describe('generateComponentsInterface', () => {
         },
       }
     })
-    expect(a).toMatchInlineSnapshot(`
-      "type Cat = {
-          name?: string;
-          age: number;
+    expect(typeToString(type)).toMatchInlineSnapshot(`
+      "type Components = {
+          Cat: {
+              name?: string;
+              age: number;
+          };
       };"
     `)
   })
 
   it('works with enums', () => {
-    const a = generateComponentsInterfaces({
+    const type = generateComponentsType({
       schemas: {
         Breed: {
           type: 'string',
@@ -101,17 +124,18 @@ describe('generateComponentsInterface', () => {
         }
       }
     })
-    expect(a).toMatchInlineSnapshot(`
-      "type Breed = \\"persian\\" | \\"siamese\\";
-
-      type Cat = {
-          breed?: Breed;
+    expect(typeToString(type)).toMatchInlineSnapshot(`
+      "type Components = {
+          Breed: \\"persian\\" | \\"siamese\\";
+          Cat: {
+              breed?: Breed;
+          };
       };"
     `)
   })
 
   it('works with anyOf', () => {
-    const a = generateComponentsInterfaces({
+    const type = generateComponentsType({
       schemas: {
         CatBreed: {
           type: 'string',
@@ -143,21 +167,21 @@ describe('generateComponentsInterface', () => {
         }
       }
     })
-    expect(a).toMatchInlineSnapshot(`
-      "type CatBreed = \\"persian\\" | \\"siamese\\";
-
-      type DogBreed = \\"labrador\\" | \\"poodle\\";
-
-      type Animal = {
-          breed?: DogBreed;
-      } | {
-          breed?: CatBreed;
+    expect(typeToString(type)).toMatchInlineSnapshot(`
+      "type Components = {
+          CatBreed: \\"persian\\" | \\"siamese\\";
+          DogBreed: \\"labrador\\" | \\"poodle\\";
+          Animal: {
+              breed?: DogBreed;
+          } | {
+              breed?: CatBreed;
+          };
       };"
     `)
   })
 
   it('works with nullable', () => {
-    const a = generateComponentsInterfaces({
+    const type = generateComponentsType({
       schemas: {
         Cat: {
           type: 'object',
@@ -170,15 +194,17 @@ describe('generateComponentsInterface', () => {
         }
       }
     })
-    expect(a).toMatchInlineSnapshot(`
-      "type Cat = {
-          name?: string | null;
+    expect(typeToString(type)).toMatchInlineSnapshot(`
+      "type Components = {
+          Cat: {
+              name?: string | null;
+          };
       };"
     `)
   })
 
   it('works with arrays', () => {
-    const a = generateComponentsInterfaces({
+    const type = generateComponentsType({
       schemas: {
         Animals: {
           type: 'array',
@@ -194,15 +220,17 @@ describe('generateComponentsInterface', () => {
         }
       }
     })
-    expect(a).toMatchInlineSnapshot(`
-      "type Animals = {
-          name: string;
-      }[];"
+    expect(typeToString(type)).toMatchInlineSnapshot(`
+      "type Components = {
+          Animals: {
+              name: string;
+          }[];
+      };"
     `)
   })
 
-  it('works with lugas', () => {
-    const a = generateComponentsInterfaces({
+  it('works with arrays', () => {
+    const type = generateComponentsType({
       schemas: {
         Animals: {
           type: 'array',
@@ -218,10 +246,12 @@ describe('generateComponentsInterface', () => {
         }
       }
     })
-    expect(a).toMatchInlineSnapshot(`
-      "type Animals = {
-          name: string;
-      }[];"
+    expect(typeToString(type)).toMatchInlineSnapshot(`
+      "type Components = {
+          Animals: {
+              name: string;
+          }[];
+      };"
     `)
   })
 

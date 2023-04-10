@@ -74,7 +74,7 @@ function getMethodType(
   )
 }
 
-export function generatePathsInterface(data: OpenAPIV3.PathsObject) {
+export function generatePathsType(data: OpenAPIV3.PathsObject) {
   const pathsType = ts.factory.createTypeLiteralNode(
     Object.entries(data).map(([path, value]) => {
       return ts.factory.createPropertySignature(
@@ -89,6 +89,18 @@ export function generatePathsInterface(data: OpenAPIV3.PathsObject) {
                 "post",
                 value.post.responses,
                 value.post.requestBody
+              ),
+            value?.delete &&
+              getMethodType(
+                "delete",
+                value.delete.responses,
+                value.delete.requestBody
+              ),
+            value?.options &&
+              getMethodType(
+                "delete",
+                value.options.responses,
+                value.options.requestBody
               ),
             value?.put &&
               getMethodType("put", value.put.responses, value.put.requestBody),
@@ -111,30 +123,5 @@ export function generatePathsInterface(data: OpenAPIV3.PathsObject) {
     pathsType,
   )
 
-  const resultFile = ts.createSourceFile(
-    "someFileName.ts",
-    "",
-    ts.ScriptTarget.Latest,
-    /*setParentNodes*/ false,
-    ts.ScriptKind.TS
-  );
-  const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
-
-  return printer.printList(
-    ts.ListFormat.AllowTrailingComma,
-    ts.factory.createNodeArray([
-      ts.factory.createImportDeclaration(
-        undefined,
-        ts.factory.createImportClause(
-          true,
-          ts.factory.createIdentifier('foo'),
-          undefined
-        ),
-        ts.factory.createStringLiteral('bar')
-      ),
-      ts.factory.createIdentifier('\n'),
-      pathsTypeAlias,
-    ]),
-    resultFile,
-  )
+    return pathsTypeAlias;
 }
