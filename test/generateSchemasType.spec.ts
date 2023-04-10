@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { generateComponentsType } from '../src/generateComponentsType'
+import { generateSchemasType } from '../src/generateSchemasType'
 import ts from 'typescript';
 
 function typeToString(node: ts.Node) {
@@ -19,9 +19,9 @@ function typeToString(node: ts.Node) {
   )
 }
 
-describe('generateComponentsInterface', () => {
+describe('generateSchemasType', () => {
   it('create a correctly named interface', () => {
-    const type = generateComponentsType({
+    const type = generateSchemasType({
       schemas: {
         Cat: {
           type: 'object',
@@ -37,7 +37,7 @@ describe('generateComponentsInterface', () => {
       }
     })
     expect(typeToString(type)).toMatchInlineSnapshot(`
-      "type Components = {
+      "type Schemas = {
           Cat: {
               name?: string;
               age?: number;
@@ -46,7 +46,7 @@ describe('generateComponentsInterface', () => {
     `)
   })
   it('works with refs', () => {
-    const type = generateComponentsType({
+    const type = generateSchemasType({
       schemas: {
         Breed: {
           type: 'object',
@@ -67,19 +67,19 @@ describe('generateComponentsInterface', () => {
       }
     })
     expect(typeToString(type)).toMatchInlineSnapshot(`
-      "type Components = {
+      "type Schemas = {
           Breed: {
               name?: string;
           };
           Cat: {
-              breed?: Breed;
+              breed?: Schemas[\\"Breed\\"];
           };
       };"
     `)
   })
 
   it('works with required properties', () => {
-    const type = generateComponentsType({
+    const type = generateSchemasType({
       schemas: {
         Cat: {
           type: 'object',
@@ -98,7 +98,7 @@ describe('generateComponentsInterface', () => {
       }
     })
     expect(typeToString(type)).toMatchInlineSnapshot(`
-      "type Components = {
+      "type Schemas = {
           Cat: {
               name?: string;
               age: number;
@@ -108,7 +108,7 @@ describe('generateComponentsInterface', () => {
   })
 
   it('works with enums', () => {
-    const type = generateComponentsType({
+    const type = generateSchemasType({
       schemas: {
         Breed: {
           type: 'string',
@@ -125,17 +125,17 @@ describe('generateComponentsInterface', () => {
       }
     })
     expect(typeToString(type)).toMatchInlineSnapshot(`
-      "type Components = {
+      "type Schemas = {
           Breed: \\"persian\\" | \\"siamese\\";
           Cat: {
-              breed?: Breed;
+              breed?: Schemas[\\"Breed\\"];
           };
       };"
     `)
   })
 
   it('works with anyOf', () => {
-    const type = generateComponentsType({
+    const type = generateSchemasType({
       schemas: {
         CatBreed: {
           type: 'string',
@@ -168,20 +168,20 @@ describe('generateComponentsInterface', () => {
       }
     })
     expect(typeToString(type)).toMatchInlineSnapshot(`
-      "type Components = {
+      "type Schemas = {
           CatBreed: \\"persian\\" | \\"siamese\\";
           DogBreed: \\"labrador\\" | \\"poodle\\";
           Animal: {
-              breed?: DogBreed;
+              breed?: Schemas[\\"DogBreed\\"];
           } | {
-              breed?: CatBreed;
+              breed?: Schemas[\\"CatBreed\\"];
           };
       };"
     `)
   })
 
   it('works with nullable', () => {
-    const type = generateComponentsType({
+    const type = generateSchemasType({
       schemas: {
         Cat: {
           type: 'object',
@@ -195,7 +195,7 @@ describe('generateComponentsInterface', () => {
       }
     })
     expect(typeToString(type)).toMatchInlineSnapshot(`
-      "type Components = {
+      "type Schemas = {
           Cat: {
               name?: string | null;
           };
@@ -204,7 +204,7 @@ describe('generateComponentsInterface', () => {
   })
 
   it('works with arrays', () => {
-    const type = generateComponentsType({
+    const type = generateSchemasType({
       schemas: {
         Animals: {
           type: 'array',
@@ -221,7 +221,7 @@ describe('generateComponentsInterface', () => {
       }
     })
     expect(typeToString(type)).toMatchInlineSnapshot(`
-      "type Components = {
+      "type Schemas = {
           Animals: {
               name: string;
           }[];
@@ -230,7 +230,7 @@ describe('generateComponentsInterface', () => {
   })
 
   it('works with arrays', () => {
-    const type = generateComponentsType({
+    const type = generateSchemasType({
       schemas: {
         Animals: {
           type: 'array',
@@ -247,7 +247,7 @@ describe('generateComponentsInterface', () => {
       }
     })
     expect(typeToString(type)).toMatchInlineSnapshot(`
-      "type Components = {
+      "type Schemas = {
           Animals: {
               name: string;
           }[];
