@@ -9,7 +9,7 @@ function typesToString(types: ts.NodeArray<any>) {
     "someFileName.ts",
     "",
     ts.ScriptTarget.Latest,
-    /*setParentNodes*/ false,
+    false,
     ts.ScriptKind.TS
   );
   const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
@@ -87,6 +87,7 @@ describe('generateTypes', () => {
                       };
                       405: {};
                   };
+                  Parameters: {};
                   RequestBody: {
                       \\"application/json\\": Schemas[\\"Pet\\"];
                       \\"application/xml\\": Schemas[\\"Pet\\"];
@@ -103,6 +104,7 @@ describe('generateTypes', () => {
                       404: {};
                       405: {};
                   };
+                  Parameters: {};
                   RequestBody: {
                       \\"application/json\\": Schemas[\\"Pet\\"];
                       \\"application/xml\\": Schemas[\\"Pet\\"];
@@ -119,6 +121,11 @@ describe('generateTypes', () => {
                       };
                       400: {};
                   };
+                  Parameters: {
+                      Query: {
+                          status: \\"available\\" | \\"pending\\" | \\"sold\\";
+                      };
+                  };
                   RequestBody: {};
               };
           };
@@ -130,6 +137,11 @@ describe('generateTypes', () => {
                           \\"application/json\\": Schemas[\\"Pet\\"][];
                       };
                       400: {};
+                  };
+                  Parameters: {
+                      Query: {
+                          tags: string[];
+                      };
                   };
                   RequestBody: {};
               };
@@ -144,17 +156,39 @@ describe('generateTypes', () => {
                       400: {};
                       404: {};
                   };
+                  Parameters: {
+                      Path: {
+                          petId: number;
+                      };
+                  };
                   RequestBody: {};
               };
               POST: {
                   Responses: {
                       405: {};
                   };
+                  Parameters: {
+                      Path: {
+                          petId: number;
+                      };
+                      Query: {
+                          name: string;
+                          status: string;
+                      };
+                  };
                   RequestBody: {};
               };
               DELETE: {
                   Responses: {
                       400: {};
+                  };
+                  Parameters: {
+                      Header: {
+                          api_key: string;
+                      };
+                      Path: {
+                          petId: number;
+                      };
                   };
                   RequestBody: {};
               };
@@ -164,6 +198,14 @@ describe('generateTypes', () => {
                   Responses: {
                       200: {
                           \\"application/json\\": Schemas[\\"ApiResponse\\"];
+                      };
+                  };
+                  Parameters: {
+                      Path: {
+                          petId: number;
+                      };
+                      Query: {
+                          additionalMetadata: string;
                       };
                   };
                   RequestBody: {
@@ -178,6 +220,7 @@ describe('generateTypes', () => {
                           \\"application/json\\": {};
                       };
                   };
+                  Parameters: {};
                   RequestBody: {};
               };
           };
@@ -189,6 +232,7 @@ describe('generateTypes', () => {
                       };
                       405: {};
                   };
+                  Parameters: {};
                   RequestBody: {
                       \\"application/json\\": Schemas[\\"Order\\"];
                       \\"application/xml\\": Schemas[\\"Order\\"];
@@ -206,12 +250,22 @@ describe('generateTypes', () => {
                       400: {};
                       404: {};
                   };
+                  Parameters: {
+                      Path: {
+                          orderId: number;
+                      };
+                  };
                   RequestBody: {};
               };
               DELETE: {
                   Responses: {
                       400: {};
                       404: {};
+                  };
+                  Parameters: {
+                      Path: {
+                          orderId: number;
+                      };
                   };
                   RequestBody: {};
               };
@@ -224,6 +278,7 @@ describe('generateTypes', () => {
                           \\"application/xml\\": Schemas[\\"User\\"];
                       };
                   };
+                  Parameters: {};
                   RequestBody: {
                       \\"application/json\\": Schemas[\\"User\\"];
                       \\"application/xml\\": Schemas[\\"User\\"];
@@ -240,6 +295,7 @@ describe('generateTypes', () => {
                       };
                       default: {};
                   };
+                  Parameters: {};
                   RequestBody: {
                       \\"application/json\\": Schemas[\\"User\\"][];
                   };
@@ -254,6 +310,12 @@ describe('generateTypes', () => {
                       };
                       400: {};
                   };
+                  Parameters: {
+                      Query: {
+                          username: string;
+                          password: string;
+                      };
+                  };
                   RequestBody: {};
               };
           };
@@ -262,6 +324,7 @@ describe('generateTypes', () => {
                   Responses: {
                       default: {};
                   };
+                  Parameters: {};
                   RequestBody: {};
               };
           };
@@ -275,6 +338,11 @@ describe('generateTypes', () => {
                       400: {};
                       404: {};
                   };
+                  Parameters: {
+                      Path: {
+                          username: string;
+                      };
+                  };
                   RequestBody: {};
               };
               DELETE: {
@@ -282,11 +350,21 @@ describe('generateTypes', () => {
                       400: {};
                       404: {};
                   };
+                  Parameters: {
+                      Path: {
+                          username: string;
+                      };
+                  };
                   RequestBody: {};
               };
               PUT: {
                   Responses: {
                       default: {};
+                  };
+                  Parameters: {
+                      Path: {
+                          username: string;
+                      };
                   };
                   RequestBody: {
                       \\"application/json\\": Schemas[\\"User\\"];

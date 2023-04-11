@@ -95,6 +95,7 @@ describe('generatePathsType', () => {
                           };
                       };
                   };
+                  Parameters: {};
                   RequestBody: {
                       \\"application/json\\": {
                           foo?: string;
@@ -115,6 +116,7 @@ describe('generatePathsType', () => {
                           };
                       };
                   };
+                  Parameters: {};
                   RequestBody: {
                       \\"application/json\\": {
                           foo?: string;
@@ -135,6 +137,7 @@ describe('generatePathsType', () => {
                           };
                       };
                   };
+                  Parameters: {};
                   RequestBody: {
                       \\"application/json\\": {
                           foo?: string;
