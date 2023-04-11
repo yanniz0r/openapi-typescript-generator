@@ -1,6 +1,7 @@
 import { OpenAPIV3 } from "openapi-types";
 import ts from "typescript";
 import { getTypescriptType } from "./getTypescriptType";
+import { getTypeReferenceFromRef } from "./getTypeReferenceFromRef";
 
 function getRequestBody(requestBody?: OpenAPIV3.RequestBodyObject | OpenAPIV3.ReferenceObject) {
   if (!requestBody || "$ref" in requestBody) {
@@ -23,7 +24,7 @@ function getResponseType(
   responses: OpenAPIV3.ResponseObject | OpenAPIV3.ReferenceObject,
 ) {
   if (!responses || "$ref" in responses) {
-    throw Error("Not supported yet");
+    throw ts.factory.createTypeReferenceNode(getTypeReferenceFromRef(responses.$ref))
   }
   const content = responses.content || {};
 
@@ -95,12 +96,6 @@ export function generatePathsType(data: OpenAPIV3.PathsObject) {
                 "delete",
                 value.delete.responses,
                 value.delete.requestBody
-              ),
-            value?.options &&
-              getMethodType(
-                "delete",
-                value.options.responses,
-                value.options.requestBody
               ),
             value?.put &&
               getMethodType("put", value.put.responses, value.put.requestBody),

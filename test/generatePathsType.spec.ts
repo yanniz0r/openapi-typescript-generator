@@ -30,6 +30,9 @@ describe('generatePathsType', () => {
               properties: {
                 foo: {
                   type: 'string'
+                },
+                bar: {
+                  $ref: '#/components/schemas/BarType'
                 }
               }
             }
@@ -95,6 +98,7 @@ describe('generatePathsType', () => {
                   RequestBody: {
                       \\"application/json\\": {
                           foo?: string;
+                          bar?: Schemas[\\"BarType\\"];
                       };
                   };
               };
@@ -114,6 +118,7 @@ describe('generatePathsType', () => {
                   RequestBody: {
                       \\"application/json\\": {
                           foo?: string;
+                          bar?: Schemas[\\"BarType\\"];
                       };
                   };
               };
@@ -133,6 +138,7 @@ describe('generatePathsType', () => {
                   RequestBody: {
                       \\"application/json\\": {
                           foo?: string;
+                          bar?: Schemas[\\"BarType\\"];
                       };
                   };
               };

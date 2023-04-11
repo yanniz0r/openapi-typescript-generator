@@ -1,6 +1,6 @@
 import { OpenAPIV3 } from 'openapi-types'
 import ts from 'typescript'
-import { getTypeNameFromRef } from './getTypeNameFromRef'
+import { getTypeReferenceFromRef } from './getTypeReferenceFromRef'
 
 function getTypescriptStringType(data: OpenAPIV3.NonArraySchemaObject) {
   if (data.enum) {
@@ -50,7 +50,7 @@ function getTypescriptLiteralType(data: OpenAPIV3.NonArraySchemaObject) {
 
 export function getTypescriptType(data: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject): ts.TypeNode {
   if ('$ref' in data) {
-    return ts.factory.createTypeReferenceNode(getTypeNameFromRef(data.$ref))
+    return ts.factory.createTypeReferenceNode(getTypeReferenceFromRef(data.$ref))
   }
   if (data.anyOf) {
     return getTypescriptUnionType(data.anyOf)
