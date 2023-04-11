@@ -99,7 +99,7 @@ describe('generatePathsType', () => {
                   RequestBody: {
                       \\"application/json\\": {
                           foo?: string;
-                          bar?: Schemas[\\"BarType\\"];
+                          bar?: Components[\\"Schemas\\"][\\"BarType\\"];
                       };
                   };
               };
@@ -120,7 +120,7 @@ describe('generatePathsType', () => {
                   RequestBody: {
                       \\"application/json\\": {
                           foo?: string;
-                          bar?: Schemas[\\"BarType\\"];
+                          bar?: Components[\\"Schemas\\"][\\"BarType\\"];
                       };
                   };
               };
@@ -141,7 +141,7 @@ describe('generatePathsType', () => {
                   RequestBody: {
                       \\"application/json\\": {
                           foo?: string;
-                          bar?: Schemas[\\"BarType\\"];
+                          bar?: Components[\\"Schemas\\"][\\"BarType\\"];
                       };
                   };
               };

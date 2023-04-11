@@ -25,56 +25,58 @@ describe('generateTypes', () => {
   it('generates correct types petstore example', () => {
     const types = generateTypes(petstoreOpenapi as any);
     expect(typesToString(types)).toMatchInlineSnapshot(`
-      "type Schemas = {
-          Order: {
-              id?: number;
-              petId?: number;
-              quantity?: number;
-              shipDate?: string;
-              status?: \\"placed\\" | \\"approved\\" | \\"delivered\\";
-              complete?: boolean;
-          };
-          Customer: {
-              id?: number;
-              username?: string;
-              address?: Schemas[\\"Address\\"][];
-          };
-          Address: {
-              street?: string;
-              city?: string;
-              state?: string;
-              zip?: string;
-          };
-          Category: {
-              id?: number;
-              name?: string;
-          };
-          User: {
-              id?: number;
-              username?: string;
-              firstName?: string;
-              lastName?: string;
-              email?: string;
-              password?: string;
-              phone?: string;
-              userStatus?: number;
-          };
-          Tag: {
-              id?: number;
-              name?: string;
-          };
-          Pet: {
-              id?: number;
-              name: string;
-              category?: Schemas[\\"Category\\"];
-              photoUrls: string[];
-              tags?: Schemas[\\"Tag\\"][];
-              status?: \\"available\\" | \\"pending\\" | \\"sold\\";
-          };
-          ApiResponse: {
-              code?: number;
-              type?: string;
-              message?: string;
+      "type Components = {
+          Schemas: {
+              Order: {
+                  id?: number;
+                  petId?: number;
+                  quantity?: number;
+                  shipDate?: string;
+                  status?: \\"placed\\" | \\"approved\\" | \\"delivered\\";
+                  complete?: boolean;
+              };
+              Customer: {
+                  id?: number;
+                  username?: string;
+                  address?: Components[\\"Schemas\\"][\\"Address\\"][];
+              };
+              Address: {
+                  street?: string;
+                  city?: string;
+                  state?: string;
+                  zip?: string;
+              };
+              Category: {
+                  id?: number;
+                  name?: string;
+              };
+              User: {
+                  id?: number;
+                  username?: string;
+                  firstName?: string;
+                  lastName?: string;
+                  email?: string;
+                  password?: string;
+                  phone?: string;
+                  userStatus?: number;
+              };
+              Tag: {
+                  id?: number;
+                  name?: string;
+              };
+              Pet: {
+                  id?: number;
+                  name: string;
+                  category?: Components[\\"Schemas\\"][\\"Category\\"];
+                  photoUrls: string[];
+                  tags?: Components[\\"Schemas\\"][\\"Tag\\"][];
+                  status?: \\"available\\" | \\"pending\\" | \\"sold\\";
+              };
+              ApiResponse: {
+                  code?: number;
+                  type?: string;
+                  message?: string;
+              };
           };
       };
       type Paths = {
@@ -82,23 +84,23 @@ describe('generateTypes', () => {
               POST: {
                   Responses: {
                       200: {
-                          \\"application/xml\\": Schemas[\\"Pet\\"];
-                          \\"application/json\\": Schemas[\\"Pet\\"];
+                          \\"application/xml\\": Components[\\"Schemas\\"][\\"Pet\\"];
+                          \\"application/json\\": Components[\\"Schemas\\"][\\"Pet\\"];
                       };
                       405: {};
                   };
                   Parameters: {};
                   RequestBody: {
-                      \\"application/json\\": Schemas[\\"Pet\\"];
-                      \\"application/xml\\": Schemas[\\"Pet\\"];
-                      \\"application/x-www-form-urlencoded\\": Schemas[\\"Pet\\"];
+                      \\"application/json\\": Components[\\"Schemas\\"][\\"Pet\\"];
+                      \\"application/xml\\": Components[\\"Schemas\\"][\\"Pet\\"];
+                      \\"application/x-www-form-urlencoded\\": Components[\\"Schemas\\"][\\"Pet\\"];
                   };
               };
               PUT: {
                   Responses: {
                       200: {
-                          \\"application/xml\\": Schemas[\\"Pet\\"];
-                          \\"application/json\\": Schemas[\\"Pet\\"];
+                          \\"application/xml\\": Components[\\"Schemas\\"][\\"Pet\\"];
+                          \\"application/json\\": Components[\\"Schemas\\"][\\"Pet\\"];
                       };
                       400: {};
                       404: {};
@@ -106,9 +108,9 @@ describe('generateTypes', () => {
                   };
                   Parameters: {};
                   RequestBody: {
-                      \\"application/json\\": Schemas[\\"Pet\\"];
-                      \\"application/xml\\": Schemas[\\"Pet\\"];
-                      \\"application/x-www-form-urlencoded\\": Schemas[\\"Pet\\"];
+                      \\"application/json\\": Components[\\"Schemas\\"][\\"Pet\\"];
+                      \\"application/xml\\": Components[\\"Schemas\\"][\\"Pet\\"];
+                      \\"application/x-www-form-urlencoded\\": Components[\\"Schemas\\"][\\"Pet\\"];
                   };
               };
           };
@@ -116,8 +118,8 @@ describe('generateTypes', () => {
               GET: {
                   Responses: {
                       200: {
-                          \\"application/xml\\": Schemas[\\"Pet\\"][];
-                          \\"application/json\\": Schemas[\\"Pet\\"][];
+                          \\"application/xml\\": Components[\\"Schemas\\"][\\"Pet\\"][];
+                          \\"application/json\\": Components[\\"Schemas\\"][\\"Pet\\"][];
                       };
                       400: {};
                   };
@@ -133,8 +135,8 @@ describe('generateTypes', () => {
               GET: {
                   Responses: {
                       200: {
-                          \\"application/xml\\": Schemas[\\"Pet\\"][];
-                          \\"application/json\\": Schemas[\\"Pet\\"][];
+                          \\"application/xml\\": Components[\\"Schemas\\"][\\"Pet\\"][];
+                          \\"application/json\\": Components[\\"Schemas\\"][\\"Pet\\"][];
                       };
                       400: {};
                   };
@@ -150,8 +152,8 @@ describe('generateTypes', () => {
               GET: {
                   Responses: {
                       200: {
-                          \\"application/xml\\": Schemas[\\"Pet\\"];
-                          \\"application/json\\": Schemas[\\"Pet\\"];
+                          \\"application/xml\\": Components[\\"Schemas\\"][\\"Pet\\"];
+                          \\"application/json\\": Components[\\"Schemas\\"][\\"Pet\\"];
                       };
                       400: {};
                       404: {};
@@ -197,7 +199,7 @@ describe('generateTypes', () => {
               POST: {
                   Responses: {
                       200: {
-                          \\"application/json\\": Schemas[\\"ApiResponse\\"];
+                          \\"application/json\\": Components[\\"Schemas\\"][\\"ApiResponse\\"];
                       };
                   };
                   Parameters: {
@@ -228,15 +230,15 @@ describe('generateTypes', () => {
               POST: {
                   Responses: {
                       200: {
-                          \\"application/json\\": Schemas[\\"Order\\"];
+                          \\"application/json\\": Components[\\"Schemas\\"][\\"Order\\"];
                       };
                       405: {};
                   };
                   Parameters: {};
                   RequestBody: {
-                      \\"application/json\\": Schemas[\\"Order\\"];
-                      \\"application/xml\\": Schemas[\\"Order\\"];
-                      \\"application/x-www-form-urlencoded\\": Schemas[\\"Order\\"];
+                      \\"application/json\\": Components[\\"Schemas\\"][\\"Order\\"];
+                      \\"application/xml\\": Components[\\"Schemas\\"][\\"Order\\"];
+                      \\"application/x-www-form-urlencoded\\": Components[\\"Schemas\\"][\\"Order\\"];
                   };
               };
           };
@@ -244,8 +246,8 @@ describe('generateTypes', () => {
               GET: {
                   Responses: {
                       200: {
-                          \\"application/xml\\": Schemas[\\"Order\\"];
-                          \\"application/json\\": Schemas[\\"Order\\"];
+                          \\"application/xml\\": Components[\\"Schemas\\"][\\"Order\\"];
+                          \\"application/json\\": Components[\\"Schemas\\"][\\"Order\\"];
                       };
                       400: {};
                       404: {};
@@ -274,15 +276,15 @@ describe('generateTypes', () => {
               POST: {
                   Responses: {
                       default: {
-                          \\"application/json\\": Schemas[\\"User\\"];
-                          \\"application/xml\\": Schemas[\\"User\\"];
+                          \\"application/json\\": Components[\\"Schemas\\"][\\"User\\"];
+                          \\"application/xml\\": Components[\\"Schemas\\"][\\"User\\"];
                       };
                   };
                   Parameters: {};
                   RequestBody: {
-                      \\"application/json\\": Schemas[\\"User\\"];
-                      \\"application/xml\\": Schemas[\\"User\\"];
-                      \\"application/x-www-form-urlencoded\\": Schemas[\\"User\\"];
+                      \\"application/json\\": Components[\\"Schemas\\"][\\"User\\"];
+                      \\"application/xml\\": Components[\\"Schemas\\"][\\"User\\"];
+                      \\"application/x-www-form-urlencoded\\": Components[\\"Schemas\\"][\\"User\\"];
                   };
               };
           };
@@ -290,14 +292,14 @@ describe('generateTypes', () => {
               POST: {
                   Responses: {
                       200: {
-                          \\"application/xml\\": Schemas[\\"User\\"];
-                          \\"application/json\\": Schemas[\\"User\\"];
+                          \\"application/xml\\": Components[\\"Schemas\\"][\\"User\\"];
+                          \\"application/json\\": Components[\\"Schemas\\"][\\"User\\"];
                       };
                       default: {};
                   };
                   Parameters: {};
                   RequestBody: {
-                      \\"application/json\\": Schemas[\\"User\\"][];
+                      \\"application/json\\": Components[\\"Schemas\\"][\\"User\\"][];
                   };
               };
           };
@@ -332,8 +334,8 @@ describe('generateTypes', () => {
               GET: {
                   Responses: {
                       200: {
-                          \\"application/xml\\": Schemas[\\"User\\"];
-                          \\"application/json\\": Schemas[\\"User\\"];
+                          \\"application/xml\\": Components[\\"Schemas\\"][\\"User\\"];
+                          \\"application/json\\": Components[\\"Schemas\\"][\\"User\\"];
                       };
                       400: {};
                       404: {};
@@ -367,9 +369,9 @@ describe('generateTypes', () => {
                       };
                   };
                   RequestBody: {
-                      \\"application/json\\": Schemas[\\"User\\"];
-                      \\"application/xml\\": Schemas[\\"User\\"];
-                      \\"application/x-www-form-urlencoded\\": Schemas[\\"User\\"];
+                      \\"application/json\\": Components[\\"Schemas\\"][\\"User\\"];
+                      \\"application/xml\\": Components[\\"Schemas\\"][\\"User\\"];
+                      \\"application/x-www-form-urlencoded\\": Components[\\"Schemas\\"][\\"User\\"];
                   };
               };
           };
