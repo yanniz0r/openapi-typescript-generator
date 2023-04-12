@@ -3,10 +3,14 @@ lockfileVersion: 5.4
 specifiers:
   '@types/node': ^18.15.11
   '@vitest/coverage-c8': ^0.29.8
+  commander: ^10.0.0
   openapi-types: ^12.1.0
   ts-node: ^10.9.1
   typescript: ^5.0.3
   vitest: ^0.29.8
+
+dependencies:
+  commander: 10.0.0
 
 devDependencies:
   '@types/node': 18.15.11
@@ -411,6 +415,11 @@ packages:
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
     dev: true
+
+  /commander/10.0.0:
+    resolution: {integrity: sha512-zS5PnTI22FIRM6ylNW8G4Ap0IEOyk62fhLSD0+uHRT9McRCLGpkVNvao4bjimpK/GShynyQkFFxHhwMcETmduA==}
+    engines: {node: '>=14'}
+    dev: false
 
   /concat-map/0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}

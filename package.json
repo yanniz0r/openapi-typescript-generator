@@ -1,8 +1,16 @@
 {
   "name": "openapi-ts",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "license": "MIT",
+  "bin": {
+    "openapi-ts": "dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
+  },
   "devDependencies": {
     "@types/node": "^18.15.11",
     "@vitest/coverage-c8": "^0.29.8",
@@ -10,5 +18,8 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.0.3",
     "vitest": "^0.29.8"
+  },
+  "dependencies": {
+    "commander": "^10.0.0"
   }
 }
