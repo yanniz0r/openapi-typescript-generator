@@ -1,4 +1,4 @@
-import { GenerateCommand } from "./generateCommand";
+import { GenerateCommand } from "./GenerateCommand";
 import { Command } from 'commander'
 
 const program = new Command()
