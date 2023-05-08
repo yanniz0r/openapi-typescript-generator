@@ -87,6 +87,7 @@ describe('generateTypes', () => {
                   \\"application/json\\": Components[\\"Schemas\\"][\\"User\\"][];
               };
           };
+          Responses: {};
       };
       type Paths = {
           \\"/pet\\": {

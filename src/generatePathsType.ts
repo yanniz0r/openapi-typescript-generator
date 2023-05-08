@@ -4,28 +4,7 @@ import { getTypescriptType } from "./getTypescriptType";
 import { getTypeReferenceFromRef } from "./getTypeReferenceFromRef";
 import { uppercaseFirstCharacter } from "./helpers/uppercaseFirstCharacter";
 import { generateRequestBodyType } from "./generateRequestBodyType";
-
-function getResponseType(
-  responses: OpenAPIV3.ResponseObject | OpenAPIV3.ReferenceObject
-) {
-  if (!responses || "$ref" in responses) {
-    throw ts.factory.createTypeReferenceNode(
-      getTypeReferenceFromRef(responses.$ref)
-    );
-  }
-  const content = responses.content || {};
-
-  return ts.factory.createTypeLiteralNode(
-    Object.entries(content).map(([contentType, type]) => {
-      return ts.factory.createPropertySignature(
-        undefined,
-        ts.factory.createIdentifier(`"${contentType}"`),
-        undefined,
-        getTypescriptType(type.schema!)
-      );
-    })
-  );
-}
+import { generateResponsesType } from "./generateResponsesType";
 
 function groupParametersByLocation(
   parameters: Array<OpenAPIV3.ParameterObject | OpenAPIV3.ReferenceObject>
@@ -89,16 +68,7 @@ function getMethodType(
         undefined,
         "Responses",
         undefined,
-        ts.factory.createTypeLiteralNode(
-          Object.entries(responses).map(([status, response]) => {
-            return ts.factory.createPropertySignature(
-              undefined,
-              status,
-              undefined,
-              getResponseType(response)
-            );
-          })
-        )
+        generateResponsesType(responses)
       ),
       ts.factory.createPropertySignature(
         undefined,

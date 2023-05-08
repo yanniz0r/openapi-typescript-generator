@@ -45,6 +45,7 @@ describe('generateSchemasType', () => {
               };
           };
           RequestBodies: {};
+          Responses: {};
       };"
     `)
   })
@@ -80,6 +81,7 @@ describe('generateSchemasType', () => {
               };
           };
           RequestBodies: {};
+          Responses: {};
       };"
     `)
   })
@@ -112,6 +114,7 @@ describe('generateSchemasType', () => {
               };
           };
           RequestBodies: {};
+          Responses: {};
       };"
     `)
   })
@@ -142,6 +145,7 @@ describe('generateSchemasType', () => {
               };
           };
           RequestBodies: {};
+          Responses: {};
       };"
     `)
   })
@@ -191,6 +195,7 @@ describe('generateSchemasType', () => {
               };
           };
           RequestBodies: {};
+          Responses: {};
       };"
     `)
   })
@@ -217,6 +222,7 @@ describe('generateSchemasType', () => {
               };
           };
           RequestBodies: {};
+          Responses: {};
       };"
     `)
   })
@@ -246,6 +252,7 @@ describe('generateSchemasType', () => {
               }[];
           };
           RequestBodies: {};
+          Responses: {};
       };"
     `)
   })
@@ -275,6 +282,7 @@ describe('generateSchemasType', () => {
               }[];
           };
           RequestBodies: {};
+          Responses: {};
       };"
     `)
   })
