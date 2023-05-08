@@ -78,6 +78,15 @@ describe('generateTypes', () => {
                   message?: string;
               };
           };
+          RequestBodies: {
+              Pet: {
+                  \\"application/json\\": Components[\\"Schemas\\"][\\"Pet\\"];
+                  \\"application/xml\\": Components[\\"Schemas\\"][\\"Pet\\"];
+              };
+              UserArray: {
+                  \\"application/json\\": Components[\\"Schemas\\"][\\"User\\"][];
+              };
+          };
       };
       type Paths = {
           \\"/pet\\": {

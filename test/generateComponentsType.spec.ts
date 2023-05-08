@@ -44,6 +44,7 @@ describe('generateSchemasType', () => {
                   age?: number;
               };
           };
+          RequestBodies: {};
       };"
     `)
   })
@@ -78,6 +79,7 @@ describe('generateSchemasType', () => {
                   breed?: Components[\\"Schemas\\"][\\"Breed\\"];
               };
           };
+          RequestBodies: {};
       };"
     `)
   })
@@ -109,6 +111,7 @@ describe('generateSchemasType', () => {
                   age: number;
               };
           };
+          RequestBodies: {};
       };"
     `)
   })
@@ -138,6 +141,7 @@ describe('generateSchemasType', () => {
                   breed?: Components[\\"Schemas\\"][\\"Breed\\"];
               };
           };
+          RequestBodies: {};
       };"
     `)
   })
@@ -186,6 +190,7 @@ describe('generateSchemasType', () => {
                   breed?: Components[\\"Schemas\\"][\\"CatBreed\\"];
               };
           };
+          RequestBodies: {};
       };"
     `)
   })
@@ -211,6 +216,7 @@ describe('generateSchemasType', () => {
                   name?: string | null;
               };
           };
+          RequestBodies: {};
       };"
     `)
   })
@@ -239,6 +245,7 @@ describe('generateSchemasType', () => {
                   name: string;
               }[];
           };
+          RequestBodies: {};
       };"
     `)
   })
@@ -267,6 +274,7 @@ describe('generateSchemasType', () => {
                   name: string;
               }[];
           };
+          RequestBodies: {};
       };"
     `)
   })

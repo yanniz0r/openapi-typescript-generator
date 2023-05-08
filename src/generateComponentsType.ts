@@ -1,6 +1,7 @@
 import { OpenAPIV3 } from "openapi-types";
 import ts from "typescript";
 import { generateSchemasType } from "./generateSchemasType";
+import { generateRequestBodiesType } from "./generateRequestBodiesType";
 
 export function generateComponentsType(components: OpenAPIV3.ComponentsObject) {
   return ts.factory.createTypeAliasDeclaration(
@@ -14,6 +15,12 @@ export function generateComponentsType(components: OpenAPIV3.ComponentsObject) {
           'Schemas',
           undefined,
           generateSchemasType(components.schemas)
+        ),
+        ts.factory.createPropertySignature(
+          undefined,
+          'RequestBodies',
+          undefined,
+          generateRequestBodiesType(components.requestBodies)
         )
         // TODO other members of the components object
       ]

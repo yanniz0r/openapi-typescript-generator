@@ -3,25 +3,7 @@ import ts from "typescript";
 import { getTypescriptType } from "./getTypescriptType";
 import { getTypeReferenceFromRef } from "./getTypeReferenceFromRef";
 import { uppercaseFirstCharacter } from "./helpers/uppercaseFirstCharacter";
-
-function getRequestBody(
-  requestBody?: OpenAPIV3.RequestBodyObject | OpenAPIV3.ReferenceObject
-) {
-  if (!requestBody || "$ref" in requestBody) {
-    return ts.factory.createTypeLiteralNode([]);
-  }
-
-  return ts.factory.createTypeLiteralNode(
-    Object.entries(requestBody.content).map(([contentType, type]) => {
-      return ts.factory.createPropertySignature(
-        undefined,
-        ts.factory.createIdentifier(`"${contentType}"`),
-        undefined,
-        getTypescriptType(type.schema!)
-      );
-    })
-  );
-}
+import { generateRequestBodyType } from "./generateRequestBodyType";
 
 function getResponseType(
   responses: OpenAPIV3.ResponseObject | OpenAPIV3.ReferenceObject
@@ -128,7 +110,7 @@ function getMethodType(
         undefined,
         "RequestBody",
         undefined,
-        getRequestBody(requestBody)
+        generateRequestBodyType(requestBody)
       ),
     ])
   );
